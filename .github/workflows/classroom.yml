@@ -1,0 +1,52 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test9-1
+      id: test9-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Test9-1
+        setup-command: "/bin/bash ./test9.sh"
+        command: cat Test/output1.txt
+        input: ''
+        expected-output: "------------------\nResize: 2 -> 4\nResize: 4 -> 8\nIntVec:
+          1 2 3 4 5 6 \nPop: 6\nPop: 5\nPop: 4\nPop: 3\nPop: 2\nPop: 1"
+        comparison-method: contains
+        timeout: 10
+    - name: Test9-2
+      id: test9-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Test9-2
+        setup-command: "/bin/bash test9.sh"
+        command: cat Test/output2.txt
+        input: ''
+        expected-output: "------------------\nResize: 2 -> 4\nResize: 4 -> 8\nIntVec:
+          1 2 3 4 5 6 \nPop: 6\nPop: 5\nPop: 4\nPop: 3\nPop: 2\nPop: 1\n------------------\nResize:
+          2 -> 4\nResize: 4 -> 8\nDoubleVec: 1.1 2.2 3.3 4.4 5.5 \nPop: 5.5\nPop:
+          4.4\nPop: 3.3\nPop: 2.2\nPop: 1.1\n------------------\nResize: 2 -> 4\nResize:
+          4 -> 8\nCharVec: A B C D E F \nPop: F\nPop: E\nPop: D\nPop: C\nPop: B\nPop:
+          A\n------------------\nResize: 2 -> 4\nResize: 4 -> 8\nStringVec: Hello
+          World C++ Template Vector \nPop: Vector\nPop: Template\nPop: C++\nPop: World\nPop:
+          Hello"
+        comparison-method: contains
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST9-1_RESULTS: "${{steps.test9-1.outputs.result}}"
+        TEST9-2_RESULTS: "${{steps.test9-2.outputs.result}}"
+      with:
+        runners: test9-1,test9-2
