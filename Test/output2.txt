@@ -1,0 +1,38 @@
+------------------
+Resize: 2 -> 4
+Resize: 4 -> 8
+IntVec: 1 2 3 4 5 6 
+Pop: 6
+Pop: 5
+Pop: 4
+Pop: 3
+Pop: 2
+Pop: 1
+------------------
+Resize: 2 -> 4
+Resize: 4 -> 8
+DoubleVec: 1.1 2.2 3.3 4.4 5.5 
+Pop: 5.5
+Pop: 4.4
+Pop: 3.3
+Pop: 2.2
+Pop: 1.1
+------------------
+Resize: 2 -> 4
+Resize: 4 -> 8
+CharVec: A B C D E F 
+Pop: F
+Pop: E
+Pop: D
+Pop: C
+Pop: B
+Pop: A
+------------------
+Resize: 2 -> 4
+Resize: 4 -> 8
+StringVec: Hello World C++ Template Vector 
+Pop: Vector
+Pop: Template
+Pop: C++
+Pop: World
+Pop: Hello
